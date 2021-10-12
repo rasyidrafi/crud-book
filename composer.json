@@ -1,0 +1,15 @@
+{
+    "name": "rasyid/crud-book",
+    "description": "Simple CRUD",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "rasyidrafi",
+            "email": "muhammand.rafi25@gmail.com"
+        }
+    ],
+    "require": {},
+    "scripts": {
+        "start": "php -S localhost:8080 -t ."
+    }
+}
