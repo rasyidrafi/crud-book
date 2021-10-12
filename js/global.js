@@ -13,3 +13,7 @@ function formatRupiah(angka, prefix) {
     rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
     return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 }
+
+function percentage(num, per) {
+    return (num / 100) * per;
+}
