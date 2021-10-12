@@ -1,4 +1,7 @@
-<?php include("data.php"); ?>
+<?php 
+    $nama = "Rasyid";
+    $noPenjualan = 225;
+?>
 
 <!DOCTYPE html>
 <html lang="en">
