@@ -38,13 +38,8 @@
                     </span>
                 </li>
                 <li class="nav-item">
-                    <span class="nav-link">ID<br />
-                        <span class="fw-bold"><?php echo $noPenjualan ?></span>
-                    </span>
-                </li>
-                <li class="nav-item">
-                    <span class="nav-link">Pustakawan<br>
-                        <span class="fw-bold"><?php echo $nama ?></span>
+                    <span class="nav-link">Kasir<br>
+                        <span class="fw-bold"><?php echo "Rasyid" ?></span>
                     </span>
                 </li>
             </ul>

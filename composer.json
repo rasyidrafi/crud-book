@@ -8,7 +8,10 @@
             "email": "muhammand.rafi25@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "cahkampung/landa-db": "^1.2",
+        "slim/slim": "3.*"
+    },
     "scripts": {
         "start": "php -S localhost:8080 -t ."
     }

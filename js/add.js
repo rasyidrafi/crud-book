@@ -1,6 +1,6 @@
 var dataBuku = [];
 
-$("#bookPrice").on('input propertychange', function() {
+$("#bookPrice").on('input propertychange', function () {
     var val = $(this).val();
     $(this).val(formatRupiah(val, "Rp. "))
 });
@@ -27,45 +27,26 @@ var addBook = () => {
     $("#submit-form").click();
 }
 
-$("#add-form").submit(function(e){
-    e.preventDefault();
-    var bookData = $(this).serializeArray();
-    var bookName = bookData[0].value;
-    var bookId = bookData[1].value;
-    var bookQty = bookData[2].value;
-    var bookPrice = bookData[3].value;
-    var bookDisc = bookData[4].value;
-    dataBuku.push([bookName, bookId, bookQty, bookPrice, bookDisc]);
-    $(this).trigger("reset");
-
+var formatTable = () => {
     $("#totalPrice").html(formatRupiah(`${countTotal()}`));
 
-    var isiTabel = "";
-    dataBuku.forEach((data, i) => {
-        isiTabel += `
-            <tr>
-                <td>${i + 1}</td>
-                <td>${data[1]}</td>
-                <td>${data[0]}</td>
-                <td>${data[2]}</td>
-                <td>${data[3]}</td>
-                <td>${data[4]}</td>
-                <td>${(data[2] * data[3]) - percentage((data[2] * data[3]), parseInt(data[4]))}</td>
-                <td>
-                <div class="btn-group" role="group">
-                    <button type="button" onclick="del(${i})" class="btn btn-sm btn-danger">Del</button>
-                </div>
-                </td>
+    $("#table-container").empty();
+    $("#table-container").html(`
+    <table class="table table-bordered table-hover table-sm" id="book-table">
+        <thead>
+            <tr class="text-primary" style="text-transform: uppercase;">
+                <th>No</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Disc %</th>
+                <th>Total</th>
+                <th>Action</th>
             </tr>
-        `;
-    });
-    $("#tableNya").html(isiTabel);
-    $("#book-table").DataTable();
-})
-
-var del = (index) => {
-    dataBuku.splice(index, 1);
-    $("#totalPrice").html(formatRupiah(`${countTotal()}`));
+        </thead>
+        <tbody id="tableNya"></tbody>
+    </table>`);
 
     var isiTabel = "";
     dataBuku.forEach((data, i) => {
@@ -89,4 +70,39 @@ var del = (index) => {
     $("#tableNya").html(isiTabel);
     $("#book-table").DataTable();
 }
+
+$("#add-form").submit(function (e) {
+    e.preventDefault();
+    var bookData = $(this).serializeArray();
+    var bookName = bookData[0].value;
+    var bookId = bookData[1].value;
+    var bookQty = bookData[2].value;
+    var bookPrice = bookData[3].value;
+    var bookDisc = bookData[4].value;
+    dataBuku.push([bookName, bookId, bookQty, bookPrice, bookDisc]);
+    $(this).trigger("reset");
+
+    formatTable();
+})
+
+var del = (index) => {
+    dataBuku.splice(index, 1);
+    formatTable();
+}
+
+$("#form-oke").submit(function (e) {
+    e.preventDefault();
+    var namaPembeli = $("#namaPembeli").val();
+    $.post({
+        url: "/add",
+        type: "POST",
+        data: {
+            dataBuku,
+            namaPembeli
+        },
+        success: data => { 
+            window.location.href = "/";
+         }
+    })
+})
 
