@@ -13,3 +13,6 @@ var addBook = () => {
     $("#bookPrice").val(price);
     $("#submit-form").click();
 }
+
+var addQty = () => $("#actionBtn").attr("name", "plus");
+var del = () => $("#actionBtn").attr("name", "del");

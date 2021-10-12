@@ -1,32 +1,33 @@
-<?php 
-    $dataBuku = [
-        ["id" => 99, "name" => "5CM", "price" => 25000, "qty" => 2, "disc" => 0],
-        ["id" => 88, "name" => "Komik Naruto", "price" => 15000, "qty" => 1, "disc" => 0],
-    ];
+<?php
+$dataBuku = [
+    ["id" => 99, "name" => "5CM", "price" => 25000, "qty" => 2, "disc" => 0],
+    ["id" => 88, "name" => "Komik Naruto", "price" => 15000, "qty" => 1, "disc" => 0],
+];
 
-    if (isset($_POST["name"], $_POST["id"], $_POST["price"])) {
-        include("data.php");
-        array_push($dataBuku, [
-            "id" => (int)htmlspecialchars($_POST["id"]), 
-            "name" => (string)htmlspecialchars($_POST["name"]), 
-            "price" => (int)htmlspecialchars($_POST["price"]), 
-            "qty" => (int)htmlspecialchars($_POST["qty"]), 
-            "disc" => (int)htmlspecialchars($_POST["disc"])
-        ]);  
-    } 
+if (isset($_POST["name"], $_POST["id"], $_POST["price"], $_POST["base"])) {
+    $dataBuku = json_decode($_POST["base"], true);
+    array_push($dataBuku, [
+        "id" => (int)htmlspecialchars($_POST["id"]),
+        "name" => (string)htmlspecialchars($_POST["name"]),
+        "price" => (int)htmlspecialchars($_POST["price"]),
+        "qty" => (int)htmlspecialchars($_POST["qty"]),
+        "disc" => (int)htmlspecialchars($_POST["disc"])
+    ]);
+}
 
-    function rupiah($angka){
-        $hasil_rupiah = "Rp " . number_format($angka,2,',','.');
-        return $hasil_rupiah;
-    }
+function rupiah($angka)
+{
+    $hasil_rupiah = "Rp " . number_format($angka, 2, ',', '.');
+    return $hasil_rupiah;
+}
 
-    include("data.php");
+include("data.php");
 
-    $total = 0;
-    foreach ($dataBuku as $buku) {
-        $total += ($buku["price"] * $buku["qty"]);
-    };
-    $total = rupiah(($total));
+$total = 0;
+foreach ($dataBuku as $buku) {
+    $total += ($buku["price"] * $buku["qty"]);
+};
+$total = rupiah(($total));
 ?>
 
 <!DOCTYPE html>
@@ -78,6 +79,7 @@
                                     <input type="number" class="form-control-sm form-control" id="discount" placeholder="Discount %" name="disc">
                                 </div>
                             </div>
+                            <input type="hidden" id="baseArr" name="base" value='<?php echo json_encode($dataBuku); ?>'>
                             <input type="submit" id="submit-form" class="d-none" value="">
                         </form>
                     </div>
@@ -108,10 +110,11 @@
                                     <th>Price</th>
                                     <th>Disc %</th>
                                     <th>Total</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php for($i =0; $i < count($dataBuku); $i++): ?>
+                                <?php for ($i = 0; $i < count($dataBuku); $i++) : ?>
                                     <tr class="text-secondary">
                                         <td><?php echo $i + 1 ?></td>
                                         <td><?php echo $dataBuku[$i]["id"]; ?></td>
@@ -120,6 +123,16 @@
                                         <td><?php echo rupiah($dataBuku[$i]["price"]); ?></td>
                                         <td><?php echo $dataBuku[$i]["disc"]; ?> %</td>
                                         <td><?php echo rupiah($dataBuku[$i]["price"] * $dataBuku[$i]["qty"]); ?></td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <form action="index.php" method="POST">
+                                                    <input id="actionBtn" type="hidden" name="plus" value="<?php echo $i ?>">
+                                                    <button type="button" onclick="addQty()" class="btn btn-success">+ Qty</button>
+                                                    <button type="button" class="btn btn-primary">Edit</button>
+                                                    <button type="button" onclick="del()" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
                                 <?php endfor; ?>
                             </tbody>
