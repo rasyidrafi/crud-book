@@ -21,5 +21,10 @@ require "db/conn.php";
         return require "addDb.php";
     });
 
+    $app->post('/print', function(Req $req, Res $res, $args){
+        $jsonData = $req->getParsedBody()["jsonData"];
+        return print_r(json_decode($jsonData));
+    });
+
     $app->run();
 ?>

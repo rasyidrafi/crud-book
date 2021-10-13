@@ -2,6 +2,7 @@ $("#book-table").DataTable();
 
 var renderModal = (json) => {
     var parse = JSON.parse(json);
+    $("#hiddenPrint").val(json);
     var dataDetail = parse[0];
     var uangBayar = parse[1];
 
