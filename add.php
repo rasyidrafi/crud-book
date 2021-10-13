@@ -68,7 +68,7 @@
                 <div class="card">
                     <div class="card-body overflow-auto">
                         <div id="table-container">
-                            <table class="table table-bordered table-hover table-sm" id="book-table">
+                            <table class="table pt-2 table-bordered table-hover table-sm" id="book-table">
                                 <thead>
                                     <tr class="text-primary" style="text-transform: uppercase;">
                                         <th>No</th>
@@ -89,19 +89,36 @@
             </div>
         </div>
 
-        <div class="d-flex mt-3 justify-content-center">
-            <div class="card d-block">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Submit Data</h5>
-                    <form id="form-oke">
-                        <input type="text" id="namaPembeli" required placeholder="Nama Pembeli" name="nama_pembeli" class="form-control form-control-sm">
-                        <button type="submit" class="btn btn-primary btn-sm d-block mx-auto">Submit</button>
-                    </form>
+        <div class="row mt-3">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-center">Submit Data</h5>
+                        <form id="form-oke">
+                            <input type="text" id="namaPembeli" required placeholder="Nama Pembeli" class="form-control form-control-sm">
+
+                            <input type="text" id="ygDibayar" required placeholder="Uang Dibayarkan" class="form-control form-control-sm">
+
+                            <div class="d-flex justify-content-between mt-3">
+                            <a href="/" class="btn btn-success btn-sm flex-start">Back</a>
+
+                                <button type="submit" class="btn btn-primary btn-sm flex-end">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                <div class="card-body" style="min-height: 181px;">
+                        <h5 class="fw-bold total-title">TOTAL UANG KEMBALI</h5>
+                        <h1 class="fw-bold text-danger text-end">Rp. <span id="totalKembali">0</span></h1>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
 
 
     <?php include("layout/_script.php") ?>

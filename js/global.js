@@ -1,4 +1,5 @@
 function formatRupiah(angka, prefix) {
+    angka = angka + "";
     var number_string = angka.replace(/[^,\d]/g, '').toString(),
         split = number_string.split(','),
         sisa = split[0].length % 3,

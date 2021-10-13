@@ -3,10 +3,12 @@
     
     $dataBuku = $_POST["dataBuku"];
     $namaPembeli = $_POST["namaPembeli"];
+    $uangBayar = $_POST["uangBayar"];
 
     // insert transaksi
     $insertTrans = [
-        "nama_pembeli" => $namaPembeli
+        "nama_pembeli" => $namaPembeli,
+        "uang_bayar" => $uangBayar
     ];
     $db->insert("transaksi", $insertTrans);
     $getTransaksi = $db->select()->from("transaksi")->limit(1)->orderBy("created_at DESC")->find();
@@ -35,7 +37,7 @@
         ];
         $db->insert("detail_transaksi", $insertData);
 
-        return "SUCCESS";
+        print_r($dataBuku);
     }
 
 ?>

@@ -5,6 +5,25 @@ $("#bookPrice").on('input propertychange', function () {
     $(this).val(formatRupiah(val, "Rp. "))
 });
 
+$("#ygDibayar").on("input propertyChange", function () {
+    var val = $(this).val();
+    $(this).val(formatRupiah(val, "Rp. "));
+    var totalHarga = $("#totalPrice").text();
+    totalHarga = totalHarga.replace("Rp. ", "");
+    totalHarga = totalHarga.replace(/\./g, "");
+    totalHarga = parseInt(totalHarga);
+
+    var uangBayar = $(this).val();
+    uangBayar = uangBayar.replace("Rp. ", "");
+    uangBayar = uangBayar.replace(/\./g, "");
+    uangBayar = parseInt(uangBayar);
+
+    if (uangBayar > totalHarga) {
+        var kembalian = totalHarga - uangBayar;
+        $("#totalKembali").html(formatRupiah(kembalian));
+    } else $("#totalKembali").html(formatRupiah(0));
+})
+
 $("#book-table").DataTable();
 
 var countTotal = () => {
@@ -93,16 +112,21 @@ var del = (index) => {
 $("#form-oke").submit(function (e) {
     e.preventDefault();
     var namaPembeli = $("#namaPembeli").val();
+    var uangBayar = $("#ygDibayar").val();
+    uangBayar = uangBayar.replace("Rp. ", "");
+    uangBayar = uangBayar.replace(/\./g, "");
+    uangBayar = parseInt(uangBayar);
     $.post({
         url: "/add",
         type: "POST",
         data: {
             dataBuku,
-            namaPembeli
+            namaPembeli,
+            uangBayar
         },
-        success: data => { 
-            window.location.href = "/";
-         }
+        success: data => {
+            setTimeout(() => window.location.href = "/", 1000);
+        }
     })
 })
 
