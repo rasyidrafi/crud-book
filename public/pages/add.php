@@ -1,24 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include("layout/_head.php"); ?>
+<?php include("public/layout/_head.php"); ?>
 
 <body>
-    <?php include("components/navbar.php") ?>
+    <?php include("public/components/navbar.php") ?>
 
-    <style>
-        .form-control-sm {
-            margin-bottom: 8px;
-        }
-
-        .cb {
-            min-height: 156px;
-            overflow-y: auto;
-        }
-
-        .total-title {
-            border-bottom: solid 2px black;
-        }
-    </style>
+    <link rel="stylesheet" href="css/add.css">
 
     <div class="container py-4">
         <div class="row">
@@ -119,9 +106,7 @@
         </div>
     </div>
 
-
-
-    <?php include("layout/_script.php") ?>
+    <?php include("public/layout/_script.php") ?>
     <script src="js/add.js"></script>
 </body>
 

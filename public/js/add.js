@@ -125,6 +125,7 @@ $("#form-oke").submit(function (e) {
             uangBayar
         },
         success: data => {
+            // console.log(data);
             setTimeout(() => window.location.href = "/", 1000);
         }
     })

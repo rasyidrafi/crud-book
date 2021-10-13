@@ -1,17 +1,15 @@
-<?php
-$dataPrint = json_decode($_POST['jsonData']);
-$dataBuku = $dataPrint[0];
-$uangBayar = $dataPrint[1];
-
-function rupiah($angka){
-	$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
-	return $hasil_rupiah;
-}
+<?php 
+    include("function/conn.php");
+    include("function/useful.php");
+    $jsonData = $_POST["jsonData"];
+    $jsonData = json_decode($jsonData);
+    $dataBuku = $jsonData[0];
+    $uangBayar = $jsonData[1];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include("layout/_head.php"); ?>
+<?php include("public/layout/_head.php"); ?>
 
 <body class="p-4">
     <h4 class="fw-bold text-center">Lamda Book Store</h4>
@@ -29,17 +27,16 @@ function rupiah($angka){
                 </tr>
             </thead>
             <tbody>
-                <?php 
-                    $i = 0 ;
-                    $totalHold = 0;
-                    $tglTransaksi = $dataBuku[count($dataBuku) - 1]->created_at;
-                    foreach ($dataBuku as $buku): ?>
+                <?php
+                $totalHold = 0;
+                $tglTransaksi = $dataBuku[count($dataBuku) - 1]->created_at;
+                foreach ($dataBuku as $buku) : ?>
                     <tr>
                         <td>
-                            <?php 
-                                $hargaBuku = $buku->total;
-                                $totalHold = $totalHold + (int)$hargaBuku;
-                                echo $buku->id;
+                            <?php
+                            $hargaBuku = $buku->total;
+                            $totalHold = $totalHold + (int)$hargaBuku;
+                            echo $buku->id;
                             ?>
                         </td>
                         <td><?= $buku->nama_buku ?></td>
@@ -48,10 +45,7 @@ function rupiah($angka){
                         <td><?= rupiah($buku->harga) ?></td>
                         <td><?= $buku->total ?></td>
                     </tr>
-                        <!-- $buku = (array)$buku; -->
-                        <!-- $totalHold = $totalHold + (int)$buku['total']; -->
-                        
-                    <?php endforeach; ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
@@ -68,9 +62,8 @@ function rupiah($angka){
     </div>
     <span>Transaksi dilakukan pada : <span class="fw-bold"><?= $tglTransaksi; ?></span></span>
 
-    <?php include("layout/_script.php"); ?>
-    
-    <script src="/js/print.js"></script>
+    <?php include("public/layout/_script.php") ?>
+    <script src="js/print.js"></script>
 </body>
 
 </html>

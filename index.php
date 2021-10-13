@@ -1,29 +1,36 @@
 <?php 
-    use \Psr\Http\Message\ServerRequestInterface as Req;
-    use \Psr\Http\Message\ResponseInterface as Res;
-
-require "db/conn.php";
     require 'vendor/autoload.php';
+
+    // Routes
+    require "routes/index.php";
+    require "routes/add.php";
+    require "routes/print.php";
+
     $app = new \Slim\App;
-    
-    $app->get('/', function (Req $req, Res $res, $args) {    
-        return require "root.php";
+
+    $app->get('/', function ($req, $res, $args) {
+        $routes = new IndexRoutes;
+        return $routes->get();
+    });
+
+    $app->delete("/", function ($req, $res, $args) {
+        $routes = new IndexRoutes;
+        $routes->del($req, $res, $args);
     });
 
     $app->get("/add", function ($req, $res, $args) {
-        return require "add.php";
+        $routes = new AddRoutes;
+        $routes->get();
     });
 
-    $app->post("/add", function (Req $req, Res $res, $args) {
-        // $req->getBody()->getContents("");
-        // $req->getBody()->;
-        // return $args;
-        return require "addDb.php";
+    $app->post("/add", function ($req, $res, $args) {
+        $routes = new AddRoutes;
+        $routes->post($req, $res, $args);
     });
 
-    $app->post('/print', function(Req $req, Res $res, $args){
-        $jsonData = $req->getParsedBody()["jsonData"];
-        return print_r(json_decode($jsonData));
+    $app->post('/print', function($req, $res, $args){
+        $routes = new PrintRoutes;
+        $routes->post();
     });
 
     $app->run();

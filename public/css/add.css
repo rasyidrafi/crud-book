@@ -1,0 +1,12 @@
+.form-control-sm {
+    margin-bottom: 8px;
+}
+
+.cb {
+    min-height: 156px;
+    overflow-y: auto;
+}
+
+.total-title {
+    border-bottom: solid 2px black;
+}

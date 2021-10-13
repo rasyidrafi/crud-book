@@ -37,3 +37,15 @@ var renderDelete = (idDel) => {
     $("#id-del-hold").val(idDel)
     $("#delete-modal").modal("show");
 }
+
+var del = () => {
+    var idToDel = $("#id-del-hold").val();
+    $.ajax({
+        url: '/',
+        type: 'DELETE',
+        data: { id: idToDel },
+        success: data => {
+            window.location.reload();
+        }
+    });
+}

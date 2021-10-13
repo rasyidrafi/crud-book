@@ -1,5 +1,6 @@
 <?php
-require "db/conn.php";
+include("function/conn.php");
+include("function/useful.php");
 $userDataTemp = [];
 $getuser = $db->select()->from("transaksi")->findAll();
 foreach ($getuser as $user) {
@@ -30,25 +31,10 @@ foreach ($getuser as $user) {
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include("layout/_head.php"); ?>
+<?php include("public/layout/_head.php"); ?>
 
 <body>
-    <?php include("components/navbar.php") ?>
-
-    <style>
-        .form-control-sm {
-            margin-bottom: 8px;
-        }
-
-        .cb {
-            min-height: 156px;
-            overflow-y: auto;
-        }
-
-        .total-title {
-            border-bottom: solid 2px black;
-        }
-    </style>
+    <?php include("public/components/navbar.php") ?>
 
     <div class="container py-4">
         <div class="card">
@@ -80,7 +66,7 @@ foreach ($getuser as $user) {
                                         <td><?php echo $userData["id"]; ?></td>
                                         <td><?php echo $userData["nama_pembeli"]; ?></td>
                                         <td><?php echo $userData["totalBuku"]; ?></td>
-                                        <td><?php echo $userData["totalHarga"]; ?></td>
+                                        <td><?php echo rupiah($userData["totalHarga"]); ?></td>
                                         <td><?php echo $userData["created_at"]; ?></td>
                                         <td>
                                             <div class="btn-group btn-group-sm"></div>
@@ -162,15 +148,14 @@ foreach ($getuser as $user) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-danger">Confirm</button>
+                    <button onclick="del()" type="button" class="btn btn-danger">Confirm</button>
                 </div>
             </div>
         </div>
     </div>
 
-
-    <?php include("layout/_script.php") ?>
-    <script src="js/root.js"></script>
+    <?php include("public/layout/_script.php") ?>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
