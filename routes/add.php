@@ -4,11 +4,6 @@ use \Psr\Http\Message\ResponseInterface as Res;
 
 class AddRoutes
 {
-    function get()
-    {
-        return require "public/pages/add.php";
-    }
-
     function post(Req $req, Res $res, array $args)
     {
         include("function/conn.php");
@@ -26,6 +21,7 @@ class AddRoutes
 
         $db->insert("transaksi", $insertTrans);
         $getLast = $db->find("SELECT LAST_INSERT_ID() AS id FROM transaksi");
+
         $arrayLast = (array)$getLast;
         $idTransaksi = $arrayLast["id"];
 
@@ -50,6 +46,6 @@ class AddRoutes
             $db->insert("detail_transaksi", $insertData);
         }
 
-        return "Success";
+        return print_r("Success");
     }
 }

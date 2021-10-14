@@ -7,10 +7,15 @@
     require "routes/print.php";
 
     $app = new \Slim\App;
+    $container = $app->getContainer();
+    $container['view'] = function ($container) {
+        return new \Slim\Views\PhpRenderer('public/');
+    };
 
     $app->get('/', function ($req, $res, $args) {
         $routes = new IndexRoutes;
-        return $routes->get();
+        $data = $routes->get();
+        return $this->view->render($res, 'pages/index.phtml', $data);
     });
 
     $app->delete("/", function ($req, $res, $args) {
@@ -19,8 +24,7 @@
     });
 
     $app->get("/add", function ($req, $res, $args) {
-        $routes = new AddRoutes;
-        $routes->get();
+        return $this->view->render($res, 'pages/add.phtml');
     });
 
     $app->post("/add", function ($req, $res, $args) {
@@ -30,7 +34,8 @@
 
     $app->post('/print', function($req, $res, $args){
         $routes = new PrintRoutes;
-        $routes->post();
+        $data = $routes->post($req, $res, $args);
+        return $this->view->render($res, 'pages/print.phtml', $data);
     });
 
     $app->run();

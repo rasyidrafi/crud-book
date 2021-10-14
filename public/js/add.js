@@ -126,7 +126,7 @@ $("#form-oke").submit(function (e) {
         },
         success: data => {
             // console.log(data);
-            setTimeout(() => window.location.href = "/", 1000);
+            setTimeout(() => window.location.href = "/");
         }
     })
 })

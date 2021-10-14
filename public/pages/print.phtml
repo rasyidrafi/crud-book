@@ -1,12 +1,3 @@
-<?php 
-    include("function/conn.php");
-    include("function/useful.php");
-    $jsonData = $_POST["jsonData"];
-    $jsonData = json_decode($jsonData);
-    $dataBuku = $jsonData[0];
-    $uangBayar = $jsonData[1];
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <?php include("public/layout/_head.php"); ?>
@@ -27,23 +18,14 @@
                 </tr>
             </thead>
             <tbody>
-                <?php
-                $totalHold = 0;
-                $tglTransaksi = $dataBuku[count($dataBuku) - 1]->created_at;
-                foreach ($dataBuku as $buku) : ?>
+                <?php foreach ($dataBuku as $buku) : ?>
                     <tr>
-                        <td>
-                            <?php
-                            $hargaBuku = $buku->total;
-                            $totalHold = $totalHold + (int)$hargaBuku;
-                            echo $buku->id;
-                            ?>
-                        </td>
+                        <td><?= $buku->id ?></td>
                         <td><?= $buku->nama_buku ?></td>
                         <td><?= $buku->jumlah ?></td>
                         <td><?= $buku->disc ?></td>
                         <td><?= rupiah($buku->harga) ?></td>
-                        <td><?= $buku->total ?></td>
+                        <td><?= rupiah($buku->total) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -51,13 +33,13 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <h5>Total Harga : <span class="text-danger fw-bold"><?= rupiah($totalHold) ?></span></h5>
+            <h5>Total Harga : <span class="text-danger fw-bold"><?= rupiah($totalHarga) ?></span></h5>
         </div>
         <div class="col-md-6 text-end">
-            <h5>Total Bayar : <span class="text-danger fw-bold"><?= rupiah($dataPrint[1]); ?></span></h5>
+            <h5>Total Bayar : <span class="text-danger fw-bold"><?= rupiah($uangBayar); ?></span></h5>
         </div>
         <div class="text-end">
-            <h5>Kembalian : <span class="fw-bold"><?= rupiah($uangBayar - $totalHold) ?></span></h5>
+            <h5>Kembalian : <span class="fw-bold"><?= rupiah($uangKembali) ?></span></h5>
         </div>
     </div>
     <span>Transaksi dilakukan pada : <span class="fw-bold"><?= $tglTransaksi; ?></span></span>

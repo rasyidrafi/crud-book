@@ -10,7 +10,8 @@
     ],
     "require": {
         "cahkampung/landa-db": "^1.2",
-        "slim/slim": "3.*"
+        "slim/slim": "3.*",
+        "slim/php-view": "^3.1"
     },
     "scripts": {
         "start": "php -S localhost:8080 -t ."
